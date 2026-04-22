@@ -37,7 +37,7 @@ jobs:
 
       - name: Write inline screenshot script
         run: |
-          cat > /tmp/screenshot.mjs <<'EOF'
+          cat > screenshot.mjs <<'EOF'
           import { chromium } from 'playwright';
 
           const VIEWPORTS = {
@@ -74,8 +74,8 @@ jobs:
             curl -sf http://localhost:4321 > /dev/null && echo "Server ready" && break
             sleep 1
           done
-          node /tmp/screenshot.mjs http://localhost:4321 desktop.png --viewport=desktop
-          node /tmp/screenshot.mjs http://localhost:4321 mobile.png  --viewport=mobile
+          node screenshot.mjs http://localhost:4321 desktop.png --viewport=desktop
+          node screenshot.mjs http://localhost:4321 mobile.png  --viewport=mobile
           kill $SERVER_PID || true
 
       - name: Upload to screenshots branch
