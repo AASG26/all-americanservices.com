@@ -139,11 +139,11 @@
     }
 
     /* ===== MOBILE-FRIENDLY DEFAULTS ===== */
-    html { scroll-behavior: smooth; }
     body { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
     img { max-width: 100%; height: auto; }
-    /* Offset anchor jumps so content isn't hidden behind the sticky header */
+    /* Fallback offset for no-JS users; JS measures the real header height */
     section[id] { scroll-margin-top: 80px; }
+    .js section[id] { scroll-margin-top: 0; }
 
     /* ===== MOBILE NAV TOGGLE ===== */
     .nav-toggle {
@@ -478,7 +478,7 @@
   </footer>
 
 
-  <!-- Scroll reveal + js-available flag + mobile menu toggle -->
+  <!-- Scroll reveal + js-available flag + mobile menu toggle + anchor offset -->
   <script>
     document.documentElement.classList.add('js');
     const observer = new IntersectionObserver(function(entries) {
@@ -491,30 +491,70 @@
     }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
     document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
 
-    // Mobile nav toggle
+    // Mobile nav toggle + smooth-scroll that accounts for the sticky header
     (function() {
+      var header = document.querySelector('.site-header');
       var toggle = document.querySelector('.nav-toggle');
       var nav = document.getElementById('primary-nav');
-      if (!toggle || !nav) return;
 
       function setOpen(open) {
+        if (!nav || !toggle) return;
         nav.classList.toggle('open', open);
         toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
       }
 
-      toggle.addEventListener('click', function() {
-        setOpen(nav.classList.contains('open') === false);
+      if (toggle && nav) {
+        toggle.addEventListener('click', function() {
+          setOpen(!nav.classList.contains('open'));
+        });
+        window.addEventListener('resize', function() {
+          if (window.innerWidth > 768) setOpen(false);
+        });
+      }
+
+      // Measure the header after the menu is closed so offset matches reality
+      function headerOffset() {
+        if (!header) return 0;
+        // Sticky header: its bounding rect top is 0 once stuck; use offsetHeight
+        return header.offsetHeight;
+      }
+
+      function scrollToHash(hash) {
+        var target = hash && hash.length > 1 ? document.querySelector(hash) : null;
+        if (!target) return false;
+        var top = target.getBoundingClientRect().top + window.pageYOffset - headerOffset();
+        window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+        return true;
+      }
+
+      // Intercept all in-page anchor clicks (header nav, hero CTA, etc.)
+      document.addEventListener('click', function(e) {
+        var a = e.target.closest && e.target.closest('a[href^="#"]');
+        if (!a) return;
+        var href = a.getAttribute('href');
+        if (!href || href === '#') return;
+
+        // Close mobile nav first so the header shrinks back to its resting size,
+        // then scroll on the next frame using the correct header height.
+        var wasOpen = nav && nav.classList.contains('open');
+        if (wasOpen) setOpen(false);
+
+        e.preventDefault();
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            if (scrollToHash(href)) {
+              history.pushState(null, '', href);
+            }
+          });
+        });
       });
 
-      // Close menu when a nav link is tapped
-      nav.addEventListener('click', function(e) {
-        if (e.target.tagName === 'A') setOpen(false);
-      });
-
-      // Reset state when resizing back to desktop
-      window.addEventListener('resize', function() {
-        if (window.innerWidth > 768) setOpen(false);
+      // Handle direct page loads with a hash (e.g. /#contact)
+      window.addEventListener('load', function() {
+        if (location.hash) {
+          requestAnimationFrame(function() { scrollToHash(location.hash); });
+        }
       });
     })();
   </script>
