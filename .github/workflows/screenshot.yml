@@ -56,6 +56,35 @@ jobs:
           const context = await browser.newContext({ viewport });
           const page = await context.newPage();
           await page.goto(url, { waitUntil: 'networkidle' });
+
+          // Scroll through the page so IntersectionObserver-based fade-ins fire
+          await page.evaluate(async () => {
+            const step = Math.floor(window.innerHeight * 0.8);
+            const max = document.documentElement.scrollHeight;
+            for (let y = 0; y < max; y += step) {
+              window.scrollTo(0, y);
+              await new Promise(r => setTimeout(r, 150));
+            }
+            window.scrollTo(0, max);
+            await new Promise(r => setTimeout(r, 300));
+            window.scrollTo(0, 0);
+            await new Promise(r => setTimeout(r, 200));
+          });
+
+          // Force any remaining transitions/animations to settle instantly and
+          // reveal anything still held at opacity:0 by a fade-in class
+          await page.addStyleTag({
+            content: `
+              *, *::before, *::after {
+                transition-duration: 0s !important;
+                transition-delay: 0s !important;
+                animation-duration: 0s !important;
+                animation-delay: 0s !important;
+              }
+            `
+          });
+          await page.waitForTimeout(300);
+
           await page.screenshot({ path: output, fullPage: true });
           await browser.close();
 
