@@ -36,6 +36,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 
+  <!-- Bebas Neue: self-hosted custom font for body text -->
+  <style>
+    @font-face {
+      font-family: "BebasNeue";
+      src: url("/fonts/BebasNeue-Regular.ttf") format("truetype");
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+
   <!-- =========================================================
        GLOBAL STYLES
        Edit colors, fonts, and spacing here to restyle the whole site.
@@ -53,7 +64,7 @@
 
       /* ----- TYPOGRAPHY ----- */
       --font-heading: "Oswald", Arial, sans-serif;  /* Bold, condensed, high-impact */
-      --font-body: Arial, Helvetica, sans-serif;    /* Clean and readable */
+      --font-body: "BebasNeue", sans-serif;         /* Clean and readable */
 
       /* ----- LAYOUT ----- */
       --max-width: 1100px;
