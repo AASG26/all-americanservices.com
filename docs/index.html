@@ -254,6 +254,11 @@
       .vmv-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
       .vmv-grid .card { padding: 28px !important; }
 
+      /* Quadrant: stack on mobile, hide center logo, show mobile logo above */
+      .quad-grid { grid-template-columns: 1fr !important; grid-template-rows: unset !important; min-height: unset !important; overflow: visible !important; }
+      .quad-center-logo { display: none !important; }
+      .quad-mobile-logo { display: flex !important; }
+
       /* How We Partner 2-col grid already uses auto-fit, but shrink gap */
       section#how-we-partner .container { gap: 28px !important; }
 
@@ -445,7 +450,11 @@
        ========================================================= -->
   <section style="padding: 0 24px 80px; background: radial-gradient(ellipse at bottom, #14356d 0%, var(--color-primary) 70%);">
     <div class="container">
-      <div style="background: var(--color-primary); border-radius: 8px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 10px; position: relative; min-height: 480px; overflow: hidden;">
+      <!-- MOBILE LOGO (hidden on desktop) -->
+      <div class="quad-mobile-logo" style="display: none; justify-content: center; margin-bottom: 24px;">
+        <img src="images/AASG Color Vert.png" alt="All-American Services Group" style="width: 120px; object-fit: contain;">
+      </div>
+      <div class="quad-grid" style="background: var(--color-primary); border-radius: 8px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 10px; position: relative; min-height: 480px; overflow: hidden;">
 
         <!-- VISION -->
         <div style="padding: 28px 36px; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; border-radius: 6px 0 0 0;">
@@ -484,7 +493,7 @@
         </div>
 
         <!-- CENTER LOGO -->
-        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 150px; height: 150px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 5px #0f2b5d, 0 0 0 10px #fff, 0 0 0 15px #0f2b5d; display: flex; align-items: center; justify-content: center; overflow: hidden; z-index: 20;">
+        <div class="quad-center-logo" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 150px; height: 150px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 5px #0f2b5d, 0 0 0 10px #fff, 0 0 0 15px #0f2b5d; display: flex; align-items: center; justify-content: center; overflow: hidden; z-index: 20;">
           <img src="images/AASG Color Vert.png" alt="All-American Services Group" style="width: 130px; height: 130px; object-fit: contain;">
         </div>
 
