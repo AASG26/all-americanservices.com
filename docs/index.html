@@ -73,7 +73,12 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html { height: 100%; overflow: hidden; }
+
     body {
+      height: 100%;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
       font-family: var(--font-body);
       color: var(--color-text);
       background: var(--color-bg);
