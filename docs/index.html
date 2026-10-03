@@ -619,8 +619,9 @@
       function scrollToHash(hash) {
         var target = hash && hash.length > 1 ? document.querySelector(hash) : null;
         if (!target) return false;
-        var top = target.getBoundingClientRect().top + window.pageYOffset - headerOffset();
-        window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+        var scroller = document.body;
+        var top = target.getBoundingClientRect().top + scroller.scrollTop - headerOffset();
+        scroller.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
         return true;
       }
 
