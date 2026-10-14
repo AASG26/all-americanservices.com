@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 642 409">
+  <!-- AASG house mark, single color, traced from "AASG Vert - White no Text".
+       Stars and stripes are clean cut-outs (no drop shadows) so they stay crisp at low opacity. -->
+  <path fill="#fff" fill-rule="evenodd" d="
+    M0 183 L320 0 L642 183 L642 409 L0 409 Z
+    M52 409 L52 213 L320 62 L521 178 L345 178 L345 230 L590 230 L590 268 L345 268 L345 320 L590 320 L590 355 L345 355 L345 409 L318 409 L318 93 L75 232 L75 409 Z
+    M210 188 L220 216.2 L249.9 217 L226.2 235.3 L234.7 264 L210 247 L185.3 264 L193.8 235.3 L170.1 217 L200 216.2 Z
+    M155 286 L165 314.2 L194.9 315 L171.2 333.3 L179.7 362 L155 345 L130.3 362 L138.8 333.3 L115.1 315 L145 314.2 Z
+    M257 286 L267 314.2 L296.9 315 L273.2 333.3 L281.7 362 L257 345 L232.3 362 L240.8 333.3 L217.1 315 L247 314.2 Z" />
+</svg>
