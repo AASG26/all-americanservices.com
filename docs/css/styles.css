@@ -478,6 +478,15 @@ p { margin: 0 0 1em; }
   .hero__ctas { display: grid; grid-template-columns: 1fr; }
   .hero__ctas .btn { width: 100%; }
   .mark { white-space: normal; }
+  /* Closer headline wraps to two lines: draw one underline per line instead of one under the last */
+  .closer__head .mark--red {
+    display: inline; padding-bottom: .1em;
+    -webkit-box-decoration-break: clone; box-decoration-break: clone;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 18' preserveAspectRatio='none'%3E%3Cpath d='M3 12 C 80 3, 170 4, 297 9' fill='none' stroke='%23bd1112' stroke-width='5' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") no-repeat 0 100% / 0% 18px;
+    transition: background-size 1.1s var(--ease) .45s;
+  }
+  .closer__head h2.is-in .mark--red { background-size: 100% 18px; }
+  .closer__head .mark--red .scribble { display: none; }
   .manifesto__mark { height: auto; width: 80vw; }
   .pillars { grid-template-columns: 1fr; }
   .pillar, .pillar + .pillar { padding-left: 0; border-left: 0; border-bottom: 1px solid rgba(255,255,255,.16); padding-bottom: 20px; }
