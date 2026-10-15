@@ -253,6 +253,11 @@ p { margin: 0 0 1em; }
 }
 .checks li::before { content: "★"; color: var(--red); flex: none; }
 .checks--up li::before { color: #fff; }
+/* Desktop: slightly tighter card so every bullet stays on one line */
+@media (min-width: 1001px) {
+  .changes__board { padding: clamp(28px, 3vw, 36px); }
+  .checks li { font-size: clamp(1rem, 1.4vw, 1.125rem); }
+}
 @keyframes itemIn { to { opacity: 1; transform: none; } }
 
 /* ---------- How we partner (split + steps) ---------- */
