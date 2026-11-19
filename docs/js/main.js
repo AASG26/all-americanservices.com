@@ -138,15 +138,4 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
   onScroll();
-
-  /* Visitors redirected from the old contact.html land at the very bottom (Phil's email + phone) */
-  try {
-    if (sessionStorage.getItem('aasgContactBottom')) {
-      sessionStorage.removeItem('aasgContactBottom');
-      window.addEventListener('load', () => requestAnimationFrame(() => {
-        const h = document.documentElement.scrollHeight;
-        try { window.scrollTo({ top: h, behavior: 'instant' }); } catch (e) { window.scrollTo(0, h); }
-      }));
-    }
-  } catch (e) {}
 })();
